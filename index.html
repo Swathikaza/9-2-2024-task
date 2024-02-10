@@ -1,0 +1,1600 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="vierpoint" content="width=device-width,initial-scale=1.0">
+         <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <p>601to650</p>
+    <h1>IP_SUBNET</h1>
+    <p>Specifies TCP/IP subnetwork aggregate resources.</p>
+    <h1>IPSPname</h1>
+    <p>Specifies the VTAM PU, LU, or CP name for the service point that
+        manages the resources on the control statements that follow it.</p>
+        <h1>LCVIEW</h1>
+        <p>Defines a configuration logical connectivity view, which contains the
+resources on the control statements that follow it.</p>
+        <h1>LINE</h1>
+        <p>Specifies VTAM lines.</p>
+        <h1>LLINK</h1>
+        <p>Specifies logical links</p>
+        <h1>LNODE</h1>
+        <p>Specifies APPN len nodes.</p>
+        <h1>LU</h1>
+        <p>Specifies VTAM logical units.</p>
+        <h1>LU_GROUP</h1>
+        <p>Specifies VTAM logical unit groups.</p>
+        <h1>MAJNODE</h1>
+        <p>Specifies VTAM major nodes.</p>
+        <h1>MDLVIEW</h1>
+        <p>Defines a more detailed logical view, which contains the resources on the
+control statements that follow it.</p>
+        <h1>MDPVIEW</h1>
+        <p>Defines a more detailed physical view, which contains the resources on the
+control statements that follow it.</p>
+        <h1>MIG_DATA_HOST</h1>
+        <p>Specifies Migration Data Hosts.</p>
+        <h1>NCP</h1>
+        <p>Specifies NCP resources.</p>
+        <h1>NETWORK</h1>
+        <p>Specifies the MultiSystem Manager or APPNTAM network aggregate
+resource.</p>
+        <h1>NNODE</h1>
+        <p>Specifies APPN network nodes.</p>
+        <h1>NONSNA</h1>
+        <p>Specifies Non-SNA (GMFHS managed real) resources.</p>
+        <h1>OTHER</h1>
+        <p>Specifies a resource from a user-created or MultiSystem Manager open
+class.</p>
+        <h1>PCVIEW</h1>
+        <p>Defines a configuration physical connectivity view, which contains the
+resources on the control statements that follow it.</p>
+        <h1>PU</h1>
+        <p>Specifies VTAM physical units</p>
+        <h1>PVIEW</h1>
+        <p>Defines a configuration peer view, which contains the resources on the
+control statements that follow it.</p>
+        <h1>SNA</h1>
+        <p>Specifies VTAM SNA shadow resources.</p>
+        <h1>SNA_DOMAIN</h1>
+        <p>Specifies the global VTAM domain which owns the resources on the
+control statements that follow it.</p>
+        <h1>SNA_PORT</h1>
+        <p>Specifies the SNA port.</p>
+        <h1>SNALOCALTOPO</h1>
+        <p>Specifies the APPN SNA local topology resources</p>
+        <h1>SYSTEM</h1>
+        <p>Specifies system aggregate resources.</p>
+        <h1>TG</h1>
+        <p>Specifies APPN transmission groups.</p>
+        <h1>VIEW</h1>
+        <p>Defines a network view, which contains the resources on the control
+statements that follow it.</p>
+        <h1>VRN</h1>
+        <p>Specifies APPN virtual routing nodes.</p>
+        <h1>WILDCARD</h1>
+        <p>Defines wildcard characters to use when coding wild card names on the
+control statements.</p>
+        <h1>Control Statement Syntax</h1>
+        <p>BLDVIEWS control statements have a free-form syntax which uses keywords and
+values. You can start coding in any column. Leading and trailing blanks are
+ignored. A specific control statement can span 1 or more lines. Two types of
+continuation are available:</p>
+        <ul>
+       <li> <p> A control statement separated into multiple statements with the break occurring
+after a keyword=value. This is done by coding a comma after the keyword=value
+and continuing with the remaining parameters on the next statements. For
+           example:</p></li>
+            </ul>
+        
+        <img style="margin-left:150px;" src="image1.JPG">
+        
+        <ul>
+        <li> <p>A control statement separated into multiple statements with the break occurring
+anywhere in the coding. (This type of continuation is required when an entire
+keyword=value cannot be coded on one statement). The break can occur in the
+middle of a keyword or value by coding the following characters: ||,. For
+example:</p></li>
+        </ul>
+        
+        <img style="margin-left: 150px;" src="image2.JPG">
+        <p>The statements are concatenated and the characters are removed</p>
+        <p>Note: The RODM Collection Manager interpreter supports the use of double equal
+signs (==) to distinguish between using MyName-based names or
+DisplayResourceName-based names as they appear on a view. For example, the
+following control statement creates a view and adds an object based on its
+DisplayResourceName:</p>
+        
+        <p>VIEW=NewView,CREATE=Yes</p>
+        <p>GENERIC==CommonName,CLASS=My_Object_Class</p>
+    <p>Control statements can be coded in the following items:</p>
+        <ul>
+            <li><p> NetView DSIPARM member</p></li>
+        </ul>
+        <ul>
+        <li><p>Fully qualified cataloged data set</p></li>
+        </ul>
+        <ul>
+        <li><p>A REXX stem array, which is collected in a MLWTO and passed to BLDVIEWS
+using the NetView PIPE command</p></li>
+        </ul>
+        <p>Note: You can use z/OS system symbolics in control statements processed by
+BLDVIEWS.</p>
+        <p>Keywords can be specified in any case (upper, lower or mixed) and they can be
+abbreviated. The abbreviated syntax is denoted in uppercase letters defined on
+each control statement.</p>
+        <p>If the control statements are coded in a NetView DSIPARM member or a fully
+qualified data set, the maximum length of each record is 80 characters. Columns
+73-80 are ignored. If the control statements are passed to BLDVIEWS using the
+NetView PIPE command, there is no limit to the size of the records and no
+columns are ignored</p>
+        <p>The following resource names are always translated to upper case:</p>
+        <ul>
+        <li><p> AGGCHILD (All resources except for NONSNA, AGG, CLUSTER, and
+MultiSystem Manager TCP/IP resources)</p></li>
+        </ul>
+    <ul>
+        <li><p> All APPNTAM resources except for nnDomainNetworkCluster</p>
+        </ul>
+<ul>
+        <li><p> All SNA topology manager resources</p></li>
+        </ul>
+        <ul>
+        <li><p> IPSPname</p></li>
+        </ul>
+        <ul>
+        <li><p> SNA</p></li>
+        </ul>
+        
+        <ul>
+        <li><p>v SNA_DOMAIN</p></li>
+        </ul>
+        <p>For all other resource names, code them in the same case, because that is how they
+are displayed by NetView management console or by the various element
+managers.</p>
+        <p>Keyword values can be coded in mixed case. In some instances the values are
+respected and in other instances the values are translated to upper case. The values
+for the following keywords are not translated to upper case:</p>
+        <ul>
+        <li><p>CONSOLE</p></li>
+        </ul>
+        <ul>
+        <li><p> CORRELATER (NetView V1R3 and above)</p></li>
+        </ul>
+        <ul>
+        <li><p>DISPLAY_NAME</p></li></ul>
+        <ul><li><p> DOMAIN</p></li></ul>
+        <ul><li><p>Generic Commands (ACTIVATE, DEACTIVATE, RECYCLE, DISPLAY)</p></li></ul>
+        <ul><li><p> OTHER_DATA</p></li></ul>
+        <ul><li><p>USER_DATA</p></li></ul>
+        <p>Comments can be used, but only on separate statements. Code a comment
+statement by coding an * in column 1.</p>
+        <p>* NETA NCPs</p>
+        <p>NCP=NETA*</p>
+        <p>When you want to link resources to a view, code a VIEW statement followed by
+the resource statements that you want linked to the view.</p>
+        <p>VIEW=NEWVIEW,CREATE=YES</p>
+        <p>IP_ROUTER=rtr1.company.com</p>
+        <p>IP_ROUTER=rtr2.company.com</p>
+        <p>When you want to link resources to an aggregate, code an AGGregate statement
+followed by the AGGChild resource statements that you want linked to the
+aggregate.</p>
+        <p>AGGREGATE=NEWAGG,CREATE=YES</p>
+        <p>AGGCHILD=rtr1.company.com,type=IP_ROUTER</p>
+        <p>AGGCHILD=rtr2.company.com,type=IP_ROUTER</p>
+        <h1>Common Control Statement Parameters</h1>
+        <p>The following parameters are common to many of the BLDVIEWS control
+statements and are documented here and referenced later in the documentation by
+the control statements that support them:</p>
+        <ul><li><p>AGGPRI</p></li></ul>
+        <ul><li><p>AGGTHRESH</p></li></ul>
+        <ul><li><p>COLUMN</p></li></ul>
+        <ul><li><p>CONSOLE</p></li></ul>
+        <ul><li><p>CORRELATER</p></li></ul>
+        <ul><li><p>DISPLAY_NAME</p></li></ul>
+        <ul><li><p>DISPLAY_STATUS</p></li></ul>
+        <ul><li><p> OTHER_DATA</p></li></ul>
+        <ul><li><p>ROW</p></li></ul>
+        <ul><li><p> TYPE</p></li></ul>
+        <ul><li><p> UNLINK</p></li></ul>
+        <ul><li><p> USER_DATA</p></li></ul>
+        <ul><li><p> User Status</p></li></ul>
+        – MARK
+        – AUTO_IN_PROGRESS
+        – SUSPEND
+        – SUSPEND_WITH_AUTO_CLEAR
+        <ul><li><p>Generic Commands:</p></li></ul>
+        – ACTIVATE
+        – DEACTIVATE
+        – DISPLAY
+        – RECYCLE
+        <h1>AGGPRI:</h1>
+        <h1>Description</h1>
+        <p>The AGGPRI keyword is used to set or change the aggregation priority for real
+resources. The aggregation priority is the number of levels of aggregate resources
+whose status immediately changes to degraded when the real resource becomes
+unsatisfactory (regardless of aggregation threshold values). Use this to give higher
+priority to critical resources.</p>
+        <h1>Syntax</h1>
+        <p>AGGPRI=x</p>
+        <p>-2&nbsp;&nbsp;&nbsp;&nbsp; Use the DisplayResourceType default value</p>
+        <p>-1&nbsp;&nbsp;&nbsp;&nbsp; Do not aggregate</p>
+        <p>0&nbsp;&nbsp;&nbsp;&nbsp; Aggregate, but immediately degrade 0 levels</p>
+        <p>1&nbsp;&nbsp;&nbsp;&nbsp; Immediately degrade 1 level</p>
+        <p>2 &nbsp;&nbsp;&nbsp;&nbsp;Immediately degrade 2 levels</p>
+        <p>3&nbsp;&nbsp;&nbsp;&nbsp; Immediately degrade 3 levels</p>
+        <p>4 &nbsp;&nbsp;&nbsp;&nbsp;Immediately degrade 4 levels</p>
+        <p>5 &nbsp;&nbsp;&nbsp;&nbsp;Immediately degrade 5 levels</p>
+        <p>6 &nbsp;&nbsp;&nbsp;&nbsp;Immediately degrade 6 levels</p>
+        <p>7 &nbsp;&nbsp;&nbsp;&nbsp;Immediately degrade 7 levels</p>
+        <p>8 &nbsp;&nbsp;&nbsp;&nbsp;Immediately degrade 8 levels</p>
+        <p>9 &nbsp;&nbsp;&nbsp;&nbsp;Immediately degrade 9 levels</p>
+        <h1>Example</h1>
+        <p>AGGPRI=2</p>
+        <h1>AGGTHRESH:</h1>
+        <h1>Description</h1>
+        <p>The AGGTHRESH keyword is used to set the aggregation thresholds for aggregate
+resources. The aggregation thresholds are used to determine when the status of
+aggregates are changed to reflect the status of the underlying resources. There are
+three aggregation thresholds:</p>
+        <ul><li><p>ThresholdDegraded (status color is yellow)</p></li></ul>
+        <ul><li><p>ThresholdSeverelyDegraded (status color is pink)</p></li></ul>
+        <ul><li><p>ThresholdUnsatisfactory (status color is red)</p></li></ul>
+        <p>Thresholds are specified on aggregate resources and are the minimum number of
+unsatisfactory, real resources underneath the aggregate which cause the aggregate
+to change status.</p>
+        <p>If you specify percentages, BLDVIEWS queries the TotalRealResourceCount field of
+the aggregate and multiplies it by the specified percentages to calculate the new
+values for the thresholds.</p>
+        <h1>Syntax</h1>
+        <p>AGGTHRESH=(xxx,yyy,zzz)</p>
+        <p>xxx&nbsp;&nbsp;&nbsp; 1-3 digit ThresholdDegraded</p>
+        <p>yyy&nbsp;&nbsp;&nbsp; 1-3 digit ThresholdSeverelyDegraded</p>
+        <p>zzz&nbsp;&nbsp;&nbsp; 1-3 digit ThresholdUnsatisfactory</p>
+        <h1>Example</h1>
+        <p>AGGTHRESH=(10#,25%,75%)</p>
+        <h1> Usage Notes</h1>
+        <ul><li><p>To specify a threshold value as a percentage, prefix or suffix the number with a
+%. BLDVIEWS multiplies it by the total number of real resources linked to the
+aggregate to come up with the threshold.</p></li></ul>
+        <p>To specify a threshold value as an actual number, prefix or suffix the number
+with a #. If the specified threshold is larger than the total number of real
+resources beneath the aggregate, then the threshold is set to the total number of
+real resources beneath the aggregate</p>
+        <p>You can mix actual values and percentages in the AGGTHRESH keyword.</p>
+        <ul><li><p>v If resources are added or deleted from an aggregate object after BLDVIEWS is
+run, it is necessary to rerun BLDVIEWS to readjust the thresholds.</p></li></ul>
+        <h1>COLUMN:</h1>
+        <h1>Description</h1>
+        <p>When building a grid view (layout type of 9), you can specify the specific column
+on the screen where you want a resource to be placed. The COLUMN keyword is
+used to specify the column.</p>
+        <h1>Syntax</h1>
+        <p>COLUMN=column_on_screen</p>
+        <h1>Example</h1>
+        <p>COLUMN=3</p>
+        <h1>Usage Notes</h1>
+        <ul><li><p>The COLUMN keyword is only supported if specified on a resource control
+statement that follows a view control statement with a layout type of 9 (grid).</p></li></ul>
+        <ul><li><p>ROW must be specified if COLUMN is specified</p></li></ul>
+        <h1>CONSOLE:</h1>
+        <h1>Description</h1>
+        <p>With remote console support, you can click on a resource and then issue a
+command, such as TELNET, or remotely log on to a resource. Although this is
+referred to as remote console support, any command can be specified. The
+command runs on the NetView management console workstation. BLDVIEWS
+envelopes the specified command with RemoteConsole = # and # and then sets the
+DisplayResourceUserData field. The user only has to specify the command.</p>
+        <p>You can set the remote console field for any resource in RODM that has the
+DisplayResourceUserData field defined. See the IBM Tivoli NetView for z/OS User's
+Guide: NetView Management Console for more information.</p>
+        <h1>Syntax</h1>
+        <p>CONSOLE=’command’</p>
+        <h1>Example</h1>
+        <p>CONSOLE=’TELNET.EXE %name%’</p>
+        <h1>Usage Notes</h1>
+       <ul><li><p> You can set Remote Console support for any object which has the
+           DisplayResourceUserData field defined.</p></li> </ul>
+           <ul><li><p>BLDVIEWS envelopes the specified command with the appropriate control
+information that is required for the command to be run correctly.The command
+must be specified either with a fully qualified name (drive and path) or the
+PATH must be set so the command can be located.</p></li></ul> 
+           <ul><li><p>CONSOLE is mutually exclusive with USER_DATA</p></li></ul>
+<ul><li><p>BLDVIEWS provides control variables that can be coded anywhere in the
+    command text. The variables are:</p></li></ul>
+           <h1>%NAME%</h1>
+<p>Is substituted with the name of the resource. This variable is supported
+    for all resources.</p>
+           <h1>%RANDOM%</h1>
+<p>Is substituted with a 1-5 digit random number. This variable is
+    supported for all resources.</p>
+           <h1>%SEGMENT%</h1>
+           <p>Is substituted with the segment number where the resource resides.</p>
+           <p>This variable is supported only for the resources that are identified by
+the following control statements:</p>
+           <p>– IP_HOST</p>
+<p>– INTERFACE</p>
+           <h1> %IPADDRESS%</h1>
+<p>Is substituted with the internet address of the resource. v BLDVIEWS enables the following NetView variables to be coded anywhere in
+    the command text:</p>
+           <h1>netid()</h1>
+           <p>>VTAM network identifier</p>
+<h1>domain()</h1>
+          <p> Current® NetView domain</p>
+           <h1>opid()</h1><p> NetView operator or task ID</p>
+        <h1>cursys()</h1>
+           <p>Current operating system name</p>
+<h1>ecvtpseq()</h1>
+        <p>Level of operating system</p>
+<h1>vtam()</h1><p> VTAM version and release</p>
+<h1>netview()</h1>
+        <p>Level of operating system</p>
+<p>NetView version and release</p>
+<h1>mvslevel()</h1>
+<p>z/OS version and release</p>
+<h1>opsystem()</h1>
+<p>Type of operating system</p>
+<h1>sysplex()</h1>
+<p>Name of the MVS sysplex
+ Single quotation marks (') or double quotation marks (") can be used as a
+delimiter. Correlater:</p>
+<h1>Description</h1>
+<p>The CORRELATER keyword is used to set the Correlater field for an object.
+BLDVIEWS enables the following NetView variables to be coded anywhere in the
+correlater text:</p>
+<h1>netid()</h1>
+<p>VTAM network identifier</p>
+<h1>domain()</h1>
+<p>Current NetView domain</p>
+<h1>opid()</h1><p> NetView operator or task ID</p>
+<h1>cursys()</h1>
+<p>Current operating system name</p>
+<h1>ecvtpseq()</h1>
+<p>Level of operating system</p>
+<h1>vtam()</h1> <p>VTAM version and release</p>
+<h1>netview()</h1>
+<p>NetView version and release</p>
+<h1>mvslevel()</h1>
+<p>MVS version and release</p>
+<h1>opsystem()</h1>
+<p>Type of operating system</p>
+<h1>sysplex()</h1>
+<p>Name of the MVS sysplex</p>
+           
+           <h1>Syntax</h1>
+           <h1>CORRELATER='USA VA RICHMOND'</h1>
+           <p>CORRELATER=’text’</p>
+           <h1>Usage Notes</h1>
+           Single quotation marks (') or double quotation marks (") can be used as a delimiter.</p>
+    <h1>DISPLAY_NAME:</h1>
+<h1>Description</h1>
+ <p>Set the DisplayResourceName field for resources coded on SNA, NONSNA and
+AGGREGATE statements. The DisplayResourceName field is used to define a more
+descriptive and useful name to the resources. DisplayResourceName, if defined for
+a resource, is displayed on the workstation instead of the actual RODM name
+(MyName) of the resource.
+Use the BLDVIEWS substitution variable %NAME% as part of the new
+DisplayResourceName value. The %NAME% variable is substituted with the name
+of the resource. You can use this to reformat the names of multiple resources at
+once with one control statement. You can prefix or suffix the names with additional
+text.</p>
+<h1>Syntax</h1>
+        <p>DISPLAY_NAME=xxx</p>
+<h1>Example</h1>
+        <p>DISPLAY_NAME=NCP_1</p>
+<h1>DISPLAY_STATUS:</h1>
+<h1>Description</h1>
+        <p>The DISPLAY_STATUS keyword is used to set the status of an object.</p>
+<h1>Syntax</h1>
+<p>DISPLAY_STATUS=xxx</p>
+<p>  129 &nbsp; &nbsp; Satisfactory</p>
+<p>  144 &nbsp; &nbsp;Medium satisfactory</p>
+<p>  145  &nbsp; &nbsp;Low satisfactory</p>
+<p>  130  &nbsp; &nbsp;Unsatisfactory</p>
+<p>  160  &nbsp; &nbsp;Medium unsatisfactory</p>
+<p>  161  &nbsp; &nbsp;Low unsatisfactory</p>
+<p>  131  &nbsp; &nbsp;Intermediate</p>
+<p>  132  &nbsp; &nbsp;Unknown</p>
+<p>  133  &nbsp; &nbsp;Degraded</p>
+<p>  134  &nbsp; &nbsp;Severely degraded</p>
+<p>  136–143</p>
+<p> &nbsp; &nbsp; &nbsp;User status</p>
+<p>152–159</p>
+<p> &nbsp; &nbsp; &nbsp; User status</p>
+<h1>Example</h1>
+<p>DISPLAY_STATUS=130</p>
+    <h1>Usage Notes</h1>
+    <p>Display status value 131 is not supported for aggregate objects.</p>
+    <p>Display status values 133 and 134 are not supported for real objects.</p>
+    <h1>OTHER_DATA:</h1>
+    <h1>Description</h1>
+    <p>The OTHER_DATA keyword is used to set the RODM DisplayResourceOtherData
+field for an object. The DisplayResourceOtherData field can be set to any value.
+The value in this field is displayed in the NetView management console Data1
+field.</p>
+    <h1>Syntax</h1>
+    <p>OTHER_DATA=’other_data’</p>
+    <h1>Example</h1>
+    <p>OTHER_DATA=’Call 1-800-IBM-HELP for support’</p>
+    <h1>Usage Notes</h1>
+    <p>BLDVIEWS enables the following NetView variables to be coded anywhere in the
+other data text. The variables are:</p>
+    <h1>netid()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;VTAM network identifier</p>
+    <h1>domain()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Current NetView domain</p>
+    <h1>opid()</h1><p>NetView operator or task ID</p>
+    <h1>cursys()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Current operating system name</p>
+    <h1>vtam()</h1><p>VTAM version and release</p>
+    <h1>netview()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;NetView version and release</p>
+    <h1>mvslevel()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;MVS version and release</p>
+    <h1>opsystem()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Ttype of operating system</p>
+    <h1>sysplex()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Name of the MVS sysplex</p>
+    <p>Single quotation marks (') or double quotation marks (") can be used as a delimiter.</p>
+    <h1>ROW:</h1>
+<h1>Description</h1>
+    <p>When building a hierarchical view (layout type of 6) or a grid view (layout type of
+9), you can specify the specific row on the screen where you want a resource to be
+placed. Use the ROW keyword to specify the row on a screen where you want a
+resource to be positioned.</p>
+    <p>The ROW keyword is only supported if specified on a resource control statement
+that follows a view control statement with a layout type of 6 (hierarchical) or 9
+(grid).</p>
+    <h1>Syntax</h1>
+    <p>ROW=row_on_screen</p>
+    <h1>Example</h1>
+    <p>ROW=2</p>
+    <h1>UNLINK:</h1>
+<h1>Description</h1>
+    <p>Use the UNLINK keyword to remove a resource from a view or from an aggregate
+object without having to delete the view or aggregate and rebuild them.</p>
+    <h1>Syntax</h1>
+<p>Syntax: UNLINK</p>
+<h1>Example</h1>
+    <p>View=myview</p>
+<p>Agg=myagg,unlink</p>
+    <h1>USER_DATA:</h1>
+<h1>Description</h1>
+    <p>The USER_DATA keyword is used to set the DisplayResourceUserData field for an
+object. The contents of this field is displayed in the NetView management console
+Data2 field. You can set the User Data field for any resource which has the
+DisplayResourceUserData field defined, and you can set the
+DisplayResourceUserData field to any value.</p>
+    <p>BLDVIEWS enables the following NetView variables to be coded anywhere in the
+user data text. The variables are:</p>
+    <h1>netid()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;VTAM network identifier</p>
+<h1>domain()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Current NetView domain</p>
+<h1>opid()</h1><p> NetView operator ID or task ID</p>
+<h1>cursys()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Current operating system name</p>
+<h1>vtam()</h1><p> VTAM version and release</p>
+<h1>netview()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;NetView version and release</p>
+<h1>mvslevel()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;MVS version and release</p>
+<h1>opsystem()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Type of operating system</p>
+<h1>sysplex()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Name of the MVS sysplex</p>
+    <h1>Syntax</h1>
+    <p>Syntax: USER_DATA=’user_data’</p>
+    <h1>Example</h1>
+    <p>USER_DATA=Call x45108 for support</p>
+    <h1>Usage Notes</h1>
+<ul><li><p>Single quotation marks (') or double quotation marks (") can be used as a
+    delimiter.</p></li></ul> 
+    <ul><li><p>This function cannot be used if Remote Console support is used, because they
+    occupy the DisplayResourceUserData field in RODM.</p></li></ul>
+    <h1>User Statuses:</h1>
+   <h1> Description</h1>
+<p>Use the following user status keywords to set the corresponding bits in the
+    UserStatus field:</p>
+    <ul><li><p> Mark</p></li></ul>
+    <ul><li><p> Automation in progress </p></li></ul>
+    <ul><li><p> Suspend</p></li></ul>
+    <p>The MARK keyword is used to set or clear the mark bit in the UserStatus field for
+any resource which has the UserStatus field defined. The resource must already
+exist in RODM. If you want to create an object, you must first code the control
+statements to create the resource and then code the control statements to update
+the resource.</p>
+    <p>The AUTO_IN_PROGRESS keyword is used to set or clear the Automation in
+Progress bit in the UserStatus field for any resource in RODM that has the
+UserStatus field defined. The resource must already exist in RODM. If you want to
+create an object, you must first code the control statements to create the resource
+and then code the control statements to update the resource.</p>
+    <p>The SUSPEND and SUSPEND_WITH_AUTO_CLEAR keywords can be used to set
+the Suspend bit in the UserStatus field for any resource in RODM that has the
+UserStatus field defined. The resource must already exist in RODM. If you want to
+create an object, you must first code the control statements to create the resource
+and then code the control statements to update the resource.</p>
+    <p>Setting the suspend User status flag disables the resource from aggregation and
+participation in exception views. If you set the Suspend bit in the UserStatus field
+with the SUSPEND_WITH_AUTO_CLEAR keyword, GMFHS automatically clears
+the Suspend bit when the resource returns to a satisfactory state. If you set the
+Suspend bit in the UserStatus field with the SUSPEND keyword, you must
+manually clear the Suspend bit from NetView management console or use
+BLDVIEWS.</p>
+    <p>The state of the UserStatus bits can be displayed in the Resource Information
+pop-up window.</p>
+    <h1>Generic Commands:</h1>
+<h1>Description</h1>
+    <p>BLDVIEWS can be used to set generic commands for objects. With the NetView
+management console generic commands function, a NetView management console
+operator can select a resource and issue one of the following generic commands:</p>
+    <ul><li><p> Current Status (DisplayStatusCommandText)</p></li></ul>
+    <ul><li><p>Activate (ActivateCommandText)</p></li></ul>
+<ul><li><p>Inactivate (DeactivateCommandText)</p></li></ul>
+    <ul><li><p>v Recycle (RecycleCommandText)</p></li></ul>
+    <p>The actual command to be issued is retrieved from fields on the object. For
+example, the command text for the Activate command is retrieved from the
+ActivateCommandText field.</p>
+    <h1>Syntax</h1>
+    <p>ACTivate=’activate_command’</p>
+<p>DEACTivate’=deactivate_command’</p>
+<p>RECYcle=’recycle_command’</p>
+<p>DISPlay=’display_command’</p>
+<h1>Example</h1>
+<p>ACTIVATE=’BRG LINK NAME=%NAME%’</p>
+<p>DISPLAY=BRG QUERY NAME=%NAME%</p>
+    <h1>Usage Notes</h1>
+<ul><li><p>For MultiSystem Manager token ring resources, BLDVIEWS appends the
+commands with an operator ID of FLCVBLDV and a unique correlator value.</p></li></ul>
+    <ul><li><p> BLDVIEWS provides the following control variables that can be coded anywhere
+in the command text:</p></li></ul>
+    <h1>%NAME%</h1>
+    <p>Substituted with the name of the resource. This variable is supported for
+all resources.</p>
+    <h1>%RANDOM%</h1>
+    <p>Substituted with a 1-5 digit random number. This variable is supported
+for all resources.</p>
+    <h1>%SEGMENT%</h1>
+    <p>Substituted with the segment number where the resource resides. This
+variable is supported only for the resources that are identified by the
+following control statements:</p>
+    <p>– IP_HOST</p>
+<p>– INTERFACE</p>
+    <h1>%IPADDRESS%</h1>
+<p>Substituted with the internet address of the resource. This variable is
+    only supported for the NWSERVER control statement. </p>
+    <ul><li><p>BLDVIEWS enables the following NetView variables to be coded anywhere in
+the command text:</p></li></ul>
+    <h1>netid()</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;VTAM network identifier</p>
+<h1>domain()</h1>
+   <p>&nbsp;&nbsp;&nbsp;&nbsp; Current NetView domain</p>
+<h1>opid()</h1><p> NetView operator or task ID</p>
+<h1>cursys()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Current operating system name</p>
+<h1>vtam()</h1><p> VTAM version and release</p>
+<h1>netview()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;NetView version and release</p>
+<h1>mvslevel()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;MVS version and release</p>
+<h1>opsystem()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Type of operating system</p>
+<h1>sysplex()</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Name of the MVS sysplex</p>
+    <ul><li><p>v Single quotation marks (') or double quotation marks (") can be used as a
+delimiter.</p></li></ul>
+    <h1>Defining Wildcard Characters</h1>
+    <p>Use the WILDCARD control statement to define wildcard characters.</p>
+   <h1> WILDCARD Control Statement:</h1>
+   <h1> Description</h1>
+<p>The WILDCARD control statement defines wildcard characters to use when coding
+a wild card pattern matching name on a RESOURCE control statement.</p>
+    
+<p>wildcard_single_character and wildcard_string are special characters used to define a
+    wild card pattern matching name.</p>
+<p>THe default value of wildcard_single_character and wildcard_string is an *</p>
+    <h1>WildCard</h1>
+    <img src="image3.JPG">
+    <h1>Parameters</h1>
+<p>wildcard single_character and wildcard_string
+    Special characters used to define a wild card pattern matching name.</p>
+<p>Any character can be specified, except for a comma ',' or an equal sign '='. The
+default character for both wildcard_single_character and wildcard_string an
+    asterisk (*).</p>
+    <h1>wildcard_single_character</h1>
+    <p>Used when you want to perform a wild card match on 1 character. The
+wildcard_single_character coded in a position in the wild card pattern matching
+name always matches the character in the corresponding position in the
+resource name.</p>
+    <p>If wildcard_string is specified in a wild card pattern matching name in any
+position but the last position of the wild card pattern matching name, it is
+treated as a wildcard_single_character (perform a wild card match on 1 character
+in the position specified).</p>
+    <h1>wildcard_string</h1>
+    <p>Used when you wish to perform a wild card match on a remaining string of
+characters at the end of a resource name. The wildcard_string coded at the end
+of a wild card pattern matching name always matches the string of characters
+at the corresponding position in the resource name.</p>
+    <p>If wildcard_string is specified in a wild card pattern matching name in any
+position except the last position of the wild card pattern matching name, it is
+treated as a wildcard_single_character (perform a wild card match on 1 character
+in the position specified).</p>
+    <h1>Examples</h1>
+<p>Assume WILDCARD=(?,*) for the following pattern matching examples:</p>
+    <h1>Pattern Match Example</h1>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;Matches Found</b></p>
+    <h1>BRIDGE=A001B*</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all bridge resources whose names begin with A001B.</p>
+<h1>BRIDGE=????B001</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all bridge resources whose names are eight characters in length
+and end with B001).</p>
+<h1>SEGMENT=?C?0</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all segment resources whose names have a C in position 2 and a 0
+in position 4).</p>
+<h1>ADP=??SERV*</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all adapter resources whose names are 6 or more characters in
+length, and have SERV in positions 3 through 6).</p>
+<h1>ADP=??PRINTER0?</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all adapter resources whose names are 10 or 11 characters in
+length, and have PRINTER0 in positions 3 through 10).</p>
+<p>Assume WILDCARD = *,* (the default), for the following pattern matching</p>
+    <p><b>examples:</b></p>
+    <h1>Pattern Match Example</h1>
+    <p><b>&nbsp;&nbsp;&nbsp;&nbsp;Matches Found</b></p>
+    <h1>BRIDGE=A001B*</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all bridge resources whose names begin with A001B.</p>
+   <h1> BRIDGE=****B001</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all bridge resources whose names are eight characters in length
+and end with B001.</p>
+<h1>SEGMENT=*C*0</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all segment resources whose names have a C in position 2 and a 0
+in position 4.</p>
+<h1>ADP=**SERV*</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all adapter resources whose names are 6 or more characters in
+length, and have SERV in positions 3 through 6.</p>
+<h1>ADP=**PRINTER0*</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Matches all adapter resources whose names are 10 or more characters in
+length, and have PRINTER0 in positions 3 through 10.</p>
+    <h1>Selective Control Statements</h1>
+    <p>You can use the following selective control statements to be more selective in
+specifying resources to be processed by BLDVIEWS, or to specify common
+information to be used to locate certain resources in RODM. Wildcard is not valid
+for these types of control statements.</p>
+    <h1>Service Point Control Statement:</h1>
+<h1>Description</h1>
+    <p>The service point control statement specifies the service point that manages the
+resources on the control statements following the service point control statement.
+With the service point control statement, you can be more selective in specifying
+resources to be processed by BLDVIEWS. This service point name can be
+overridden on individual control statements using the SPname keyword.</p>
+    <p>The following service point control statements are enabled:</p> 
+    <ul><li><p>LANSPname</p></li></ul>
+    <ul><li><p>IPSPname</p></li></ul>
+ 
+    <p><b>Syntax</b></p>
+<h1>ATMSPname</h1>
+    <img src="image4.JPG">
+    <p><b>Parameters</b></p>
+    <p>service_point</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1-8 character VTAM PU, LU, CP name, or the IP host name.</p>
+   <h1> All</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Include resources from ALL service points. All is the default</p>
+    <h1>Usage Notes</h1>
+<ul><li><p>If you code control statements with a name of ALL or a resource name, the
+resources that get processed depend on whether a service point control
+statement was previously specified.</p></li></ul>
+    <ul><li><P>If no prior service point statement was specified and a resource control
+statement was coded with ALL for a resource name, all resources are processed.</P></li></ul>
+    <ul><li><p>If no prior service point statement was specified and a resource control
+statement was coded with a wild card resource name, all resources that match
+the wild card name are processed.</p></li></ul>
+    <ul><li><p>If a prior service point statement was specified and a resource control statement
+was coded with ALL for a resource name, all resources managed by that service
+point are processed.</p></li></ul>
+    <ul><li><P>If a prior service point statement was specified and a resource control statement
+was coded with a wild card resource name, all resources that match the wild
+card name, and are managed by that service point, are processed.</P></li></ul>
+    <h1>SNA_DOMAIN Control Statement:</h1>
+   <h1> Description</h1>
+<p>The SNA_DOMAIN control statement specifies the SNA domain that owns the
+SNA topology manager resources on the control statements following the
+SNA_DOMAIN control statement. The SNA domain is used to locate the SNA
+topology manager resources in RODM. The default is ALL. This value can be
+overridden on individual control statements using the SNA_DOMAIN keyword.</p>
+    <p><b>Syntax</b></p>
+   <h1> SNA_DOMAIN</h1>
+    <img src="image5.JPG">
+    <p><b>Parameters</b></p>
+    <p>sna_domain_name</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA domain name in the format of network.host_pu_name.</p>
+    <h1>network</h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;VTAM network name 1–8 characters (NETID parameter in VTAM start
+    list ATCSTRxx)</p>
+    <h1>host_pu_name</h1>
+   <p>&nbsp;&nbsp;&nbsp;&nbsp; VTAM host PU name 1–8 characters (HOSTPU parameter in VTAM
+start list ATCSTRxx)</p>
+<p>If sna_domain_name is not specified, then the local SNA domain is used
+(domain where BLDVIEWS is run).</p>
+<p>The following SNA Topology Resources require an SNA Domain:</p>
+    <ul><li><p> VTAM Major Node (MAJNODE control statement)</p></li></ul>
+    <ul><Li><P>CDRMs (CDRM control statement)</P></Li></ul>
+    <ul><li><P> CDRSCs (CDRSC control statement)</P></li></ul>
+    <ul><li><p> Logical Units (LU control statement)</p></li></ul>
+    <ul><li><p> Logical Unit Groups (LU_GROUP control statement)</p></li></ul>
+    <p>The SNA Domain Name can also be specified on those control statements
+using the SNA_DOMAIN keyword in which case it overrides the
+SNA_DOMAIN control statement.</p>
+    <h1>View Control Statements</h1>
+    <p>The following view control statements define the types of views to be created.</p>
+    <h1>VIEW Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The VIEW control statement defines a network view which contains the resources
+on the control statements that follow it.</p>
+    <p><b>Syntax</b></p>
+    <h1>VIEW</h1>
+    <img src="image6.JPG">
+    <p><b>Parameters</b></p>
+    <p>view_name</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–32 character name of the view. It is the MyName of the network view
+object.</p>
+    <p><b>annotation</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–32 character view annotation.</p>
+    <p><b>layout</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1 digit layout type specification which determines the layout algorithm to
+use when building the view. BLDVIEWS supports layout types; however, only
+the following values are used:</p>
+    <ul><li><p> 6 - hierarchical (default for CREATE=YES)</p></li></ul>
+    <ul><li><p> 7 - ellipse</p></li></ul>
+    <ul><li><p> 9 - grid</p></li></ul>
+    <p><b>layout_width</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;An integer which specifies how many resource objects appear horizontally on
+one line in the view. The default value is 0, which results in a grid closely
+resembling a square. This is only applicable for layout type 9.</p>
+    <p><b>CREATE</b></p>
+<p>Specifies which action to perform on the resource specified.</p>
+    <p><b>YES</b></p>
+    <p>Create a new object for this view. The old object is deleted, if it exists.</p>
+<p>YES is the default</p>
+    <p><b>NO</b></p>
+    <p>Do not create a new object for this view. Update the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <p><b>EVIEW Control Statement:</b></p>
+    <p><b>Description</b></p>
+    <p><b>Syntax</b></p>
+    <p><b>EVIEW</b></p>
+    <img src="image7.JPG">
+    <br>
+    <br>
+    <img src="image8.JPG">
+    <p><b>Parameters</b></p>
+    <p>view_name</p>
+    <p>&nabla;&nbsp;&nbsp;&nbsp;The 1–32 character name of the view. It is the MyName of the Exception View
+object.</p>
+    <p><b>annotation</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–32 character view annotation</p>
+    <p><b>layout_width</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;An integer which specifies how many resource objects appear horizontally on
+one line in the view. The default value is 0 which results in a grid closely
+resembling a square. This is only applicable for layout type 9.</p>
+    <p><b>exceptionviewname</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–8 character name associated with the exception view. Resource objects
+that have this name in their ExceptionViewList field are considered candidates
+for display in the associated exception view. This field must be unique for all
+exception views. If not specified, BLDVIEWS creates a unique
+exceptionviewname.</p>
+    <p><b>DSF</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the DisplayStatus filter options for the exception view</p>
+    <p><b>IGNORE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;No filtering is done and the DisplayStatus is ignored. Objects with a
+mapped display status of XCPT or NOXCPT are candidates for this
+view.</p>
+    <p><b>NOXCPT</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Filter out all objects that do not map to an exception status.</p>
+    <p><b>MF</b></p><p>Specifies the UserStatus Mark filter options for the exception view. </p>
+    <p><b>IGNORE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;No filtering. UserStatus Mark is ignored.</p>
+    <p><b>ON</b></p> <p>Filters out objects that have the UserStatus bit for Mark ON. If an
+object has this UserStatus bit on, it is not in the view.</p>
+    <p><b>OFF</b></p> <p>Filters out objects that have the UserStatus bit for Mark OFF. If an
+object has this UserStatus bit off, it is not in the view. </p>
+    <p><b>SAPF</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the UserStatus SNA Alert Pending filter options for the exception
+view</p>
+    <p><b>IGNORE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;No filtering. UserStatus SNA Alert Pending is ignored.</p>
+    <p><b>ON</b></p>   <p>Filters out objects that have the UserStatus bit for SNA Alert Pending
+    ON. If an object has this UserStatus bit on, it is not in the view.</p>
+   <p><b> OFF</b></p>
+    <p>Filters out objects that have the UserStatus bit for SNA Alert Pending OFF.If an object has this UserStatus bit off, it is not in the view. </p>
+    <p><b>TIF</b></p>
+    <p>Specifies the UserStatus Threshold Inconsistency filter options for the
+Exception View.</p>
+    <p><b>IGNORE</b></p>
+    <p>No filtering. UserStatus Threshold Inconsistency is ignored.</p>
+    <p><b>ON</b></p>   <p>Filters out objects that have the UserStatus bit for Threshold
+Inconsistency ON. If an object has this UserStatus bit on, it is not in the
+view</p>
+    <p><b>OFF</b></p>  <p> Filters out objects that have the UserStatus bit Threshold Inconsistency
+OFF. If an object has this UserStatus bit off, it is not in the view.</p>
+    <p><b>AIPF</b></p>
+    <p>Specifies the UserStatus Automation In Progress filter options for the Exception
+View.</p>
+    <p><b>IGNORE</b></p>
+    <p>No filtering. UserStatus Automation In Progress is ignored.</p>
+    <p><b>ON</b></p>
+    <p>Filters out objects that have the UserStatus bit for Automation In
+Progress ON. If an object has this UserStatus bit on, it is not in the
+view</p>
+    <p><b>OFF</b></p>
+    <p>Filters out objects that have the UserStatus bit Automation In Progress
+OFF. If an object has this UserStatus bit off, it is not in the view.</p>
+    <p><b>CREATE</b></p>
+    <p>Specifies which action to perform on the resource specified.</p>
+    <p><b>YES</b></p>
+    <p>Create a new object for this view. The old object is deleted, if it exists.
+YES is the default</p>
+    <p><b>NO</b></p>
+    <p>Do not create a new object for this view. Uupdate the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <h1>PVIEW Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The PVIEW control statement defines a configuration peer view, which contains
+the resources on the control statements that follow it.</p>
+    <p><b>Syntax</b></p>
+    <p><b>PVIEW</b></p>
+    <img src="image9.JPG">
+    <br>
+    <br>
+    <img src="image10.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>view_name</b></p>
+    <p>The 1–32 character name of the view. It is the MyName of the configuration
+peer view object.</p>
+    <p><b>layout</b></p>
+    <p>The 1 digit layout type specification which determines the layout algorithm to
+use when building the view. BLDVIEWS supports all layout types; however, only the following values are used:</p>
+    <ul><li><p>v 6 - hierarchical (default for CREATE=YES)</p></li></ul>
+    <ul><li><p>7 - ellipse</p></li></ul>
+    <ul><li><p>v 9 - grid</p></li></ul>
+    <p><b>layout_width</b></p>
+    <p>An integer which specifies how many resource objects appear horizontally on
+one line in the view. The default value is 0 which results in a grid closely
+resembling a square. This is only applicable for layout type 9.</p>
+    <p><b>CREATE</b></p>
+    <p>Specifies which action to perform on the resource specified.</p>
+    <p><b>YES</b></p>
+    <P>Create a new object for this view. The old object is deleted, if it exists.</P>
+    <p>YES is the default</p>
+    <p><b>NO</b></p>
+    <p>Do not create a new object for this view. Update the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <h1>BBVIEW Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The BBVIEW control statement defines a configuration backbone view, which
+contains the resources on the control statements that follow it.</p>
+    <p><b>Syntax</b></p>
+    <p><b>BBVIEW</b></p>
+    <img src="image11.JPG">
+    <br>
+    <br>
+    <img src="image12.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>view_name</b></p>
+    <p>The 1–32 character name of the view. It is the MyName of the configuration
+backbone view object.</p>
+    <p><b>annotation</b></p>
+    <p>The 1–32 character view annotation.</p>
+    <p><b>layout</b></p>
+    <p>The 1 digit layout type specification which determines the layout algorithm to
+use when building the view. BLDVIEWS supports all layout types; however, only the following values are used:</p>
+    <ul><li><p> 1 - Radial Layout by link type (default for CREATE=YES)</p></li></ul>
+    <ul><li><p>6 - hierarchical</p></li></ul>
+    <ul><li><p> 7 - ellipse</p></li></ul>
+    <ul><li><p> 9 - grid </p></li></ul>
+    <p><b>layout_width</b></p>
+    <p>An integer which specifies how many resources appear horizontally on one
+line in the view. The default value is 0, which results in a grid closely
+resembling a square. This is only applicable for layout type 9.</p>
+    <p><b>CREATE</b></p>
+    <p>Specifies which action to perform on the resource specified.</p>
+    <p><b>YES</b></p>
+    <p>Create a new object for this view. The old object is deleted, if it exists.</p>
+    
+    <p>YES is the default.</p>
+    <p><b>NO</b></p>
+    <p>Do not create a new object for this view. Update the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <h1>LCVIEW Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The LCVIEW control statement defines a Configuration Logical Connectvity Viewwhich contains the resources on the control statements that follow it.</p>
+    <p><b>Syntax</b></p>
+    <p><b>LCVIEW</b></p>
+    <img src="image13.JPG">
+    <br>
+    <br>
+    <img src="image14.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>view_name</b></p>
+    <p>The 1–32 character name of the view. It is the MyName of the configuration
+logical connectivity view object.</p>
+    <p><b>layout</b></p>
+    <p>The 1 digit layout type specification which determines the layout algorithm to
+use when building the view. BLDVIEWS supports all layout types; however, only the following values are used:</p>
+    <ul><li><p> 1 - Radial Layout by link type (default for CREATE=YES)</p></li></ul>
+    <ul><li><p> 6 - hierarchical</p></li></ul>
+    <ul><li><p> 7 -  ellipse</p></li></ul>
+    <ul><li><p> 9 - grid</p></li></ul>
+    <p><b>layout_width</b></p>
+    <p>An integer which specifies how many resources appear horizontally on one
+line in the view. The value is 0, which results in a grid closely resembling a
+square. This is only applicable for layout type 9.</p>
+    <p><b>CREATE</b></p>
+    <p>Specifies which action to perform on the resource specified.</p>
+    <p><b>YES</b></p>
+    <p>Create a new object for this view. The old object is deleted, if it exists.</p>
+    <p>YES is the default.</p>
+    <p><b>NO</b></p>
+    <p> Do not create a new object for this view. Update the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <h1>PCVIEW Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The PCVIEW control statement defines a configuration physical connectivity view, which contains the resources on the control statements that follow it.</p>
+    <p><b>Syntax</b></p>
+    <p><b>PCVIEW</b></p>
+    <img src="image15.JPG">
+    <br>
+    <br>
+    <img src="image16.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>view_name</b></p>
+    <p>The 1–32 character name of the view. It is the MyName of the configuration
+physical connectivity view object.</p>
+    <p><b>layout</b></p>
+    <p>The 1 digit layout type specification which determines the layout algorithm to
+use when building the view. BLDVIEWS supports all layout types; however, only the following values are used:</p>
+    <ul><li><p>1 - Radial Layout by link type (default for CREATE=YES)</p></li></ul>
+    <ul><li><p>6 - hierarchical</p></li></ul>
+    <ul><li><p> 7 - ellipse</p></li></ul>
+    <ul><li><p> 9 -grid</p></li></ul>
+    <p><b>layout_width</b></p>
+    <p>An integer which specifies how many resources appear horizontally on one
+line in the view. The value is 0, which results in a grid closely resembling a
+square. This is only applicable for layout type 9.</p>
+    <p><b>CREATE</b></p>
+    <p>Specifies which action to perform on the resource specified.</p>
+    <p><b>YES</b></p>
+    <p>Create a new object for this view. The old object is deleted, if it exists.</p>
+    <p>YES is the default.</p>
+    <p><b>NO</b></p>
+    <p>Do not create a new object for this view. Update the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <h1>MDLVIEW Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The MDLVIEW control statement defines a more detail logical view, which
+contains the resources on the control statements that follow it.</p>
+    <p><b>Syntax</b></p>
+    <p><b>MDLVIEW</b></p>
+    <img src="image17.JPG">
+    <br>
+    <br>
+    <img src="image18.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>view_name</b></p>
+    <p>The 1–32 character name of the view. It is the MyName of the more detail
+logical view object.</p>
+    <p><b>layout</b></p>
+    <p>The 1 digit layout type specification which determines the layout algorithm to
+use when building the view. BLDVIEWS supports all layout types; however, only the following values are used:</p>
+    <ul><li><p> 1 - Radial Layout by link type (default for CREATE=YES)</p></li></ul>
+    <ul><li><p> 6 - hierarchical</p></li></ul>
+    <ul><li><p>7 - ellipse</p></li></ul>
+    <ul><li><p> 9 - grid</p></li></ul>
+    <p><b>layout_width</b></p>
+    <p>An integer which specifies how many resources appear horizontally on one
+line in the view. The value is 0, which results in a grid closely resembling a
+square. This is only applicable for layout type 9.</p>
+    <p><b>CREATE</b></p>
+    <p>Specifies which action to perform on the resource specified.</p>
+    <p><b>YES</b></p>
+    <p>Create a new object for this view. The old object is deleted, if it exists.</p>
+    <p>YES is the default.</p>
+    <p><b>NO</b></p>
+    <p>Do not create a new object for this view. Update the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <h1>MDPVIEW Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The MDPVIEW control statement defines a more detail physical view, which
+contains the resources on the control statements that follow it.</p>
+    <p><b>Syntax</b></p>
+    <p><b>MDPVIEW</b></p>
+    <img src="image19.JPG">
+    <br>
+    <br>
+    <img src="image20.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>view_name</b></p>
+    <p>The 1–32 character name of the view. It is the MyName of the more detail
+physical view object.</p>
+    <p><b>layout</b></p>
+    <p>The 1 digit layout type specification which determines the layout algorithm to
+use when building the view. BLDVIEWS supports all layout types; however, only the following values are used:</p>
+    <ul><li><p> 1 - Radial Layout by link type (default for CREATE=YES)</p></li></ul>
+    <ul><li><p>6 - hierarchical</p></li></ul>
+    <ul><li><p> 7 - ellipse</p></li></ul>
+    <ul><li><p> 9 - grid</p></li></ul>
+    <p><b>layout_width</b></p>
+    <p>An integer which specifies how many resources appear horizontally on one
+line in the view. The value is 0, which results in a grid closely resembling a
+square. This is only applicable for layout type 9.</p>
+    <p><b>CREATE</b></p>
+    <p>Specifies which action to perform on the resource specified</p>
+    <p><b>YES</b></p>
+    <p>Create a new object for this view. The old object is deleted, if it exists.</p>
+    <p>YES is the default</p>
+    <p><b>NO</b></p>
+    <p>Do not create a new object for this view. Update the existing object. If
+the object does not exist, an error occurs.</p>
+    <p><b>BUILD</b></p>
+    <p>Create a new object for this view if it does not exist. If it does exist,
+update the object.</p>
+    <h1>Resource Control Statements</h1>
+    <p>The following resource control statements specify the resources to be processed by
+BLDVIEWS.</p>
+    <h1>CDRM Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The CDRM control statement specifies the VTAM CDRM resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>CDRM</b></p>
+    <img src="image21.JPG">
+    <br>
+    <br>
+    <img src="image22.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>The 1–17 character VTAM CDRM name in the format of:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p><b>sna_domain_name</b></p>
+    <p>specifies the VTAM SNA domain that owns the CDRM resource. This overrides
+the value specified on the SNA_DOMAIN control statement. The format of the
+name is network.domain.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>CDRSC Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The CDRSC control statement specifies the VTAM CDRSC resource to be
+processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>CDRSC</b></p>
+    <img src="image23.JPG">
+    <br>
+    <br>
+    <img src="image24.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>The 1–17 character VTAM CDRSC name in the format of
+snaNetID.snaNodeName. The network portion of the CDRSC name might be
+omitted for those CDRSCS which were not defined with a NETID parameter. ALL or a wild card name can be specified.</p>
+    <p><b>sna_domain_name</b></p>
+    <p>Specifies the VTAM SNA domain that owns the CDRM resource. This
+overrides the value specified on the SNA_DOMAIN control statement. The
+format of the name is network.domain.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>CIRCUIT Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The CIRCUIT control statement specifies the Circuit resource to be processed. This
+includes APPN Transmission Group circuits connected to Type 2.1 nodes, APPN
+Transmission Group circuits connected to Composite Nodes, APPN Transmission
+Group circuits connected to NTRI-like nodes, APPN Transmission Group
+interdomain circuits, APPN Transmission Group intersubnetwork circuits, and
+Subarea Transmission Group Circuits.</p>
+    <p><b>Syntax</b></p>
+    <p><b>CIRCUIT</b></p>
+    <img src="image25.JPG">
+    <br>
+    <br>
+    <img src="image26.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>The SNA Circuit name in the format of snaNetID.circuitID. The name is in the
+same format that is displayed in NetView management console for the resource
+(DisplayResourceName). ALL or a wild card name can be specified.</p>
+    <p><b>TYPE</b></p>
+    <p>Specifies the type of circuit.</p>
+    <p><b>APPN_TG</b></p>
+    <p>circuit connected to Type 2.1 nodes</p>
+    <p><b>CN</b></p>  <p>circuit connected to Composite Nodes</p>
+    <p><b>NTRI</b></p>  <p>circuit connected to NTRI-like Nodes</p>
+    <p><b>INTER_SUBNET</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;intersubnetwork circuits</p>
+    <p><b>INTER_DOMAIN</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;interdomain circuits</p>
+    <p><b>SUBAREA_TG</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;subarea transmission group circuits</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>CLUSTER Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The CLUSTER control statement specifies the MultiSystem Manager or APPN
+Cluster aggregate resource to be processed. This aggregate can contain 1 or more
+network aggregates.</p>
+    <p><b>Syntax</b></p>
+    <p><b>CLUSTER</b></p>
+    <img src="image27.JPG">
+    <br>
+    <br>
+    <img src="image28.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>cluster_name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The name of the CLUSTER aggregate resource.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;For TYPE=APPN, the name is in the format of snaNetid.systemId which is the
+network identifier of the NetView domain where the topology manager is
+located.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;ALL or a wild card name can be specified</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the type of CLUSTER aggregate resource. The following value is
+valid:</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;APPN APPN</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>DOMAIN Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The DOMAIN control statement specifies the APPN Domain resource to be
+processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>DOMAIN</b></p>
+    <img src="image29.JPG">
+    <br><br>
+    <img src="image30.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character APPN network node domain name in the format:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>ENODE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The ENODE control statement specifies the APPN End Node resource to be
+processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>ENODE</b></p>
+    <img src="image31.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA end node resource name in the format:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>GENERIC Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The GENERIC control statement specifies a Real or Aggregate resource from a
+user-defined class to be processed.</p>
+    <p><b>Note:</b> The BLDVIEWS interpreter (FLCVBLDV) and the RODM Collection
+Manager interpreter (FLCV2RCM) treat the name parameter slightly differently. See
+the following description of the name parameter.</p>
+    <p><b>Syntax</b></p>
+    <p><b>GENERIC</b></p>
+    <img src="image32.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The BLDVIEWS interpreter (FLCVBLDV) searches both the RODM MyName
+and the DisplayResourceName attributes for matching object names. The
+RODM Collection Manager interpreter (FLCV2RCM) searches only the RODMDisplayResourceName attribute for matching names.</p>
+    <p><b>classname</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The name of the RODM class containing the object.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>GW_NCP Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The GW_NCP control statement specifies the SNA Communication Controller node
+resource functioning as gateways to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>GW_NCP</b></p>
+    <img src="image33.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA Communication Controller node in the format of:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>HOST_NODE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The HOST_NODE control statement specifies the SNA Type 5 Node resource to be
+processed. A Type 5 node is a subarea node containing an SSCP and having
+hierarchical control of Type 4 nodes and peripheral nodes.</p>
+    <p><b>Syntax</b></p>
+    <p><b>HOST_NODE</b></p>
+    <img src="image34.JPG">
+    <br><br>
+    <img src="image35.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA Host Node name in the format of:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IC_NODE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IC_NODE control statement specifies the SNA Interchange Node resources to
+be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IC_NODE</b></p>
+    <img src="image36.JPG">
+    <br><br>
+    <img src="image37.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA Interchange Node name in the format of:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;specifies the type of network node resource. The values are :</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>GWS</b>  Nodes with gateway services</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>CDS</b>  Nodes with central directory services</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>IRS</b>  Nodes with intermediate routing services</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>PBN</b>  Nodes which are peripheral border nodes</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>EBN</b>  Nodes which are extended border nodes</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b>ALL</b>  all IC_NODE types (default)</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Is ignored when you specify an exact resource name. It is supported only for a
+name of ALL or a wild card name.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>INTERFACE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The INTERFACE control statement specifies the MultiSystem Manager TCP/IP
+adapter resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>INTERFACE</b></p>
+    <img src="image38.JPG">
+    <br><br>
+    <img src="image39.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>adapter_name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP interface adapter name.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;ALL or a wild card name can be specified.</p>
+    <p><b>segment_name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The segment name.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;ALL can be specified and is the default.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords</p>
+    <h1>IP_BRIDGE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IP_BRIDGE control statement specifies the MultiSystem Manager TCP/IP
+bridge aggregate resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IP_BRIDGE</b></p>
+    <img src="image40.JPG">
+    <br><br>
+    <img src="image41.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP bridge name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IP_HOST Control Statement:</h1>
+    <p><b>Description</b></p>
+        <p>The IP_HOST control statement specifies the MultiSystem Manager TCP/IP host
+aggregate resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IP_HOST</b></p>
+        <img src="image42.JPG">
+    <br><br>
+    <img src="image43.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP host name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IP_HUB Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IP_HUB control statement specifies the MultiSystem Manager TCP/IP hub
+aggregate resource to be processed.</p>
+        <p><b>Syntax</b></p>
+    <p><b>IP_HUB</b></p>
+    <img src="image44.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP hub name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IP_LINK Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IP_LINK control statement specifies the MultiSystem Manager TCP/IP
+interface link aggregate resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IP_LINK</b></p>
+    <img src="image45.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP Link name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IP_LOCATION Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IP_LOCATION control statement specifies the MultiSystem Manager TCP/IP
+location resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IP_LOCATION</b></p>
+    <img src="image46.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP location name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IP_ROUTER Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IP_ROUTER control statement specifies the MultiSystem Manager TCP/IP
+router aggregate resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IP_ROUTER</b></p>
+    <img src="image47.JPG">
+    <br><br>
+    <img src="image48.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP router name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IP_SEGMENT Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IP_SEGMENT control statement specifies the MultiSystem Manager TCP/IP
+Segment aggregate resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IP_SEGMENT</b></p>
+    <img src="image49.JPG">
+    <br>
+    <br>
+    <img src="image50.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP segment name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>IP_SUBNET Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The IP_SUBNET control statement specifies the MultiSystem Manager TCP/IP
+Subnetwork aggregate resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>IP_SUBNET</b></p>
+    <img src="image51.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The TCP/IP Subnetwork name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>LINE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The LINE control statement specifies the SNA Line resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>LINE</b></p>
+    <img src="image52.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA line name in the format of: snaNetID.snaNodeName.
+ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>LLINK Control Statement:</h1>
+    <p><b>>Description</b></p>
+    <p>The LLINK control statement specifies the Logical Link resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>LLINK</b></p>
+    <img src="image53.JPG">
+    <br><br>
+    <img src="image54.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The SNA Logical Link resource name in the format: network.resource.link. ALL
+or a wild card name can be specified.</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;PE
+Specifies the type of Logical LInk. TYPE is ignored when you specify an exact
+resource name. It is supported only for a name of ALL or a wild card name.
+The values are :</p>
+    <p><b>NNODE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Network Node</p>
+    <p><b>ENODE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;End Node</p>
+    <p><b>LNODE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Len Node</p>
+    <p><b>UNKNOWN</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Logical Link type is unknown</p>
+    <p><b>ALL </b></p>  <p>All logical links</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>LNODE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The LNODE control statement specifies the APPN Len Node resource to be
+processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>LNODE</b></p>
+    <img src="image55.JPG">
+    <br>
+    <br>
+    <img src="image56.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA LEN node resource name in the format:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>LU Control Statement:</h1>
+    <p><b>Description</b></p>
+        <p>The LU control statement specifies the SNA Logical Unit resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>Lu</b></p>
+    <img src="image57.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA logical unit name in the format of:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p><b>sna_domain_name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the VTAM SNA domain that owns the Logical Unit resource. This
+overrides the value specified on the SNA_DOMAIN control statement. The
+format of the name is network.domain.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>LU_GROUP Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The LU_GROUP control statement specifies the SNA Logical Unit group resources
+to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>LU_GROUP</b></p>
+    <img src="image58.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA logical unit group name the format of: luGroupName.
+ALL or a wild card name can be specified.</p>
+    <p><b>sna_domain_name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the VTAM SNA domain that owns the Logical Unit Group resource.
+This overrides the value specified on the SNA_DOMAIN control statement.
+The format of the name is network.domain.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>MAJNODE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The MAJNODE control statement specifies the VTAM Major Node resource to be
+processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>MAJNODE</b></p>
+    <img src="image59.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–8 character VTAM Major node name in the format of: snaNodeName.
+ALL or a wild card name can be specified.</p>
+    <p><b>sna_domain_name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;specifies the VTAM SNA domain that owns the Major Node resource. This
+overrides the value specified on the SNA_DOMAIN control statement. The
+format of the name is network.domain.</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the type of VTAM Major Node. The values are :</p>
+    <p><b>APPL</b>  Application Major Node</p>
+    <p><b>CA</b>    Channel Major Node</p>
+    <p><b>CDRM</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;CDRM Major Node</p>
+    <p><b>CDRSC</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;CDRSC Major Node</p>
+    <p><b>LAN</b>  Local Area Network Major Node</p>
+    <p><b>LCLNONSNA</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Local Non SNA Major Node</p>
+    <p><b>LOCALSNA</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Local SNA Major Node</p>
+    <p><b>LUGROUP</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;LU Group Major Node</p>
+    <p><b>NCP</b></p>   <p>NCP Major Node</p>
+    <p><b>PACKET</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Packet Major Node</p>
+    <p><b>SWITCHED</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Switched Major Node</p>
+    <p><b>TRL</b></p>  <p>Token Ring Lan Major Node</p>
+    <p><b>XCA</b></p>  <p>XCA Major Node</p>
+    <p><b>ALL</b></p>   <p>All Major Node types (default)</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>MIG_DATA_HOST Control Statement:</h1>
+    <p>Description</p>
+    <p>The MIG_DATA_HOST control statement specifies the SNA Migration Data Host
+node resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>MIG_DATA_HOST</b></p>
+    <img src="image60.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA Migration Data Host node in the form of
+network.name. ALL or a wild card name can be specified.</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+        <h1>NCP Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The NCP control statement specifies the SNA Communication Controller node
+resource to be processed.</p>
+    <p><b>Syntax</b></p>
+    <p><b>NCP</b></p>
+    <img src="image61.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA Communication Controller node in the format of:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the type of SNA Communication Controller. TYPE is a required
+keyword. The values are :</p>
+    <p><b>GW</b></p>   <p>Gateway Communications Controller</p>
+    <p><b>NON_GW</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Non-Gateway Communications Controller</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>NETWORK Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The NETWORK control statement specifies the MultiSystem Manager or APPN
+Network aggregate resource to be processed. This aggregate represents the network
+managed by one service point.</p>
+    <p><b>Syntax</b></p>
+    <p><b>NETWORK</b></p>
+    <img src="image62.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>network_name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The name of the network aggregate resource.</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;For TYPE=APPN the name is in the format of snaNetid.n where n is a numeric
+increment. ALL or a wild card name can be specified.</p>
+    <p><b>service_point</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The VTAM PU, LU, or CP name for the agent. It is not supported for
+TYPE=APPN and is ignored.</p>
+    <p>ALL is the default.</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the type of NETWORK aggregate resource. The following value is
+valid:</p>
+    <p><b>APPN</b></p> <p>APPN</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    <h1>NNODE Control Statement:</h1>
+    <p><b>Description</b></p>
+    <p>The NNODE control statement specifies the APPN Network Node resource to be
+processed</p>
+    <p><b>Syntax</b></p>
+    <p><b>NNODE</b></p>
+    <img src="image63.JPG">
+    <p><b>Parameters</b></p>
+    <p><b>name</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;The 1–17 character SNA network node resource name in the format:
+snaNetID.snaNodeName. ALL or a wild card name can be specified.</p>
+    <p><b>TYPE</b></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Specifies the type of network node resource. TYPE is ignored when you specify
+an exact resource name. It is only supported for a name of ALL or a wild card
+name. The values are :</p>
+    <p><b>GWS</b></p>  <p> Nodes with gateway services</p>
+    <p><b>CDS</b></p>  <p> Nodes with central directory services</p>
+    <p><b>IRS</b></p> <p> Nodes with intermediate routing services</p>
+    <p><b>PBN</b></p>  <p> Nodes which are peripheral border nodes
+    <p><b>ICN</b></p> <p> Nodes which are interchange nodes</p>
+    <p><b>EBN</b></p> <p> Nodes which are extended border nodes</p>
+    <p>See “Common Control Statement Parameters” on page 604 for a description of the
+other supported keywords.</p>
+    
+
+        
+        
+        
+        
+        
